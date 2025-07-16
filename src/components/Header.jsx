@@ -1,6 +1,13 @@
-
+import {NavLink,useNavigate} from "react-router-dom";
 
 export const Header = () => {
+  const navigator = useNavigate();
+  const handleSearch = (e) => {
+      e.preventDefault();
+      const queryTerm = e.target.search.value;
+      e.target.reset();
+      return navigator(`/search?q=${queryTerm}`)
+  }
   return (
     <nav className="navbar navbar-expand-md fixed-top bg-primary navbar-dark">
       <div className="container-fluid">
@@ -10,13 +17,13 @@ export const Header = () => {
         </button>
         <div className="collapse navbar-collapse" id="menu">
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
-            <li className="nav-item"><a href="/" className="nav-link">Home</a></li>
-            <li className="nav-item"><a href="/movies/top" className="nav-link">Top Rated</a></li>
-            <li className="nav-item"><a href="/movies/popular" className="nav-link">Popular</a></li>
-            <li className="nav-item"><a href="/movies/upcoming" className="nav-link">Upcoming</a></li>
+            <li className="nav-item"><NavLink to="/" className="nav-link">Home</NavLink></li>
+            <li className="nav-item"><NavLink to="/movies/top" href="/movies/top" className="nav-link">Top Rated</NavLink></li>
+            <li className="nav-item"><NavLink to="/movies/popular" href="/movies/popular" className="nav-link">Popular</NavLink></li>
+            <li className="nav-item"><NavLink to="/movies/upcoming" href="/movies/upcoming" className="nav-link">Upcoming</NavLink></li>
           </ul>
-          <form action="#">
-            <input type="search" className="form-control" placeholder="Search" />
+          <form onSubmit={handleSearch}>
+            <input type="search" className="form-control" placeholder="Search" name="search"/>
           </form>
         </div>
       </div>
